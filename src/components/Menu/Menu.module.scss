@@ -1,0 +1,378 @@
+@mixin menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgb(255, 40, 165), rgb(87, 227, 252));
+  position: relative;
+}
+
+.Wrapper {
+  position: fixed;
+  top: 0rem;
+  left: 0rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+
+  & .BlackCircle {
+    position: absolute;
+    margin: auto;
+    width: 90%;
+    height: 90%;
+    background-color: #000;
+    border-radius: 100%;
+    opacity: 0;
+    animation: show 0.2s linear 0.1s 1 forwards;
+  }
+
+  & .BlackCircleFade {
+    position: absolute;
+    margin: auto;
+    width: 90%;
+    height: 90%;
+    background-color: #000;
+    border-radius: 100%;
+    animation: hideBlackColour 0.5s ease-out 1 forwards;
+  }
+
+  & .MenuClosed {
+    @include menu;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 100%;
+    margin: 1rem;
+    animation: rotateAnimation 1s linear infinite;
+
+    &::before {
+      content: "";
+      margin: auto;
+      position: absolute;
+      width: 110%;
+      height: 110%;
+      border-radius: 100%;
+      left: auto;
+      right: auto;
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
+
+    &::after {
+      content: "";
+      margin: auto;
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      border-radius: 100%;
+      left: auto;
+      right: auto;
+      -webkit-backdrop-filter: blur(1px);
+      backdrop-filter: blur(1px);
+    }
+
+    & .IconHolder {
+      color: #fff;
+      cursor: pointer;
+      z-index: 1;
+      animation: rotateAnimationReverse 1s linear infinite;
+
+      & span {
+        transform: rotate(0deg);
+      }
+    }
+
+    & .IconHolderFade {
+      animation: hide 0.2s ease-out 1 forwards;
+      cursor: pointer;
+      z-index: 1;
+    }
+  }
+
+  & .MenuOpenInitiate {
+    @include menu;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 100%;
+    margin: 1rem;
+    animation: expand 0.5s ease-out 0.5s 1 forwards;
+
+    & .IconHolder {
+      color: #fff;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    & .IconHolderFade {
+      animation: hide 0.2s ease-out 0.2s 1 forwards;
+      cursor: pointer;
+      z-index: 1;
+    }
+  }
+
+  & .MenuOpen {
+    @include menu;
+    width: 24vh;
+    height: 45vh;
+    -webkit-animation: backgroundAnimation 5s ease infinite;
+    -moz-animation: backgroundAnimation 5s ease infinite;
+    animation: backgroundAnimation 5s ease infinite;
+    background-size: 200% 200%;
+
+    & ul {
+      display: 0;
+      list-style-type: none;
+      padding: 0.2rem;
+      text-align: center;
+
+      & hr {
+        width: 80%;
+        margin: auto;
+        border: 0.5px solid #000;
+      }
+
+      & li {
+        font-size: 32px;
+        margin: 1rem 3rem;
+
+        &:hover {
+          transform: scale(1.2);
+          transition: 0.3s;
+          cursor: pointer;
+          color: #fff;
+        }
+      }
+    }
+
+    & .CloseIconWrapper {
+      position: absolute;
+      top: 2%;
+      right: 10%;
+      & .CloseIcon {
+        cursor: pointer;
+        position: relative;
+        &:hover {
+          color: #fff;
+          transition: 0.2s;
+        }
+        & span:first-child {
+          position: absolute;
+          right: -1rem;
+          top: 0%;
+          margin: auto;
+          animation: createX1 0.2s 1 forwards;
+        }
+        & span:last-child {
+          position: absolute;
+          right: -1rem;
+          top: 0%;
+          margin: auto;
+          animation: createX2 0.2s 1 forwards;
+        }
+      }
+    }
+  }
+
+  & .MenuCloseInitiate {
+    @include menu;
+    width: 20vh;
+    height: 50vh;
+    animation: shrink 0.5s ease-in 0.1s 1 forwards;
+
+    & ul {
+      display: 0;
+      list-style-type: none;
+      padding: 0.2rem;
+      text-align: center;
+      animation: hide 0.2s ease-out 0.2s 1 forwards;
+
+      & hr {
+        width: 80%;
+        margin: auto;
+        border: 0.5px solid #000;
+        animation: hide 0.1s ease-out 0.2s 1 forwards;
+      }
+
+      & li {
+        font-size: 32px;
+        margin: 1rem 3rem;
+
+        &:hover {
+          transform: scale(1.2);
+          transition: 0.3s;
+          cursor: pointer;
+          color: #fff;
+        }
+      }
+    }
+
+    & .CloseIconWrapper {
+      position: absolute;
+      top: 2%;
+      right: 10%;
+      animation: hide 0.3s ease-out 0.1s 1 forwards;
+
+      & .CloseIcon {
+        cursor: pointer;
+        position: relative;
+        & span:first-child {
+          position: absolute;
+          right: -1rem;
+          top: 0%;
+          margin: auto;
+          animation: deleteX1 0.1s 1 forwards;
+        }
+        & span:last-child {
+          position: absolute;
+          right: -1rem;
+          top: 0%;
+          margin: auto;
+          animation: deleteX2 0.1s 1 forwards;
+        }
+      }
+    }
+  }
+}
+
+@keyframes createX1 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes deleteX1 {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes createX2 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-45deg);
+  }
+}
+
+@keyframes deleteX2 {
+  from {
+    transform: rotate(-45deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes hide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes hideBlackColour {
+  from {
+    background-color: #000;
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+@keyframes expand {
+  from {
+    width: 10rem;
+    height: 10rem;
+  }
+  to {
+    top: 0%;
+    right: 0%;
+    width: 20vh;
+    height: 50vh;
+    margin: 0rem;
+    border-radius: 0rem;
+  }
+}
+
+@keyframes shrink {
+  from {
+    width: 20vh;
+    height: 50vh;
+  }
+  to {
+    position: relative;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 100%;
+    margin: 1rem;
+  }
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateAnimationReverse {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@-webkit-keyframes backgroundAnimation {
+  0% {
+    background-position: 10% 0%;
+  }
+  50% {
+    background-position: 91% 100%;
+  }
+  100% {
+    background-position: 10% 0%;
+  }
+}
+@-moz-keyframes backgroundAnimation {
+  0% {
+    background-position: 10% 0%;
+  }
+  50% {
+    background-position: 91% 100%;
+  }
+  100% {
+    background-position: 10% 0%;
+  }
+}
+@keyframes backgroundAnimation {
+  0% {
+    background-position: 10% 0%;
+  }
+  50% {
+    background-position: 91% 100%;
+  }
+  100% {
+    background-position: 10% 0%;
+  }
+}
